@@ -1,0 +1,93 @@
+import random
+
+
+
+def deal_card():
+  cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+  card = random.choice(cards)
+  return card
+
+
+def calculate_score(cards):
+  if sum(cards) == 21:
+   return 0
+  if 11 in cards and sum(cards ) > 21:
+    cards.remove(11)
+    cards.append(1)
+  return sum(cards)
+
+
+
+
+def compare(users_Score, Comp_Score):
+  if users_Score == Comp_Score:
+    return "Draw"
+  elif Comp_Score == 0:
+    return "Lose, oponent has blackjack"
+  elif users_Score == 0:
+    return "Win, with a blackjack"
+  elif users_Score > 21:
+    return "You went over You lose"
+  elif Comp_Score > 21:
+    return "oponent went over You win"
+  elif users_Score > Comp_Score:
+    return "You win"
+  else:
+    return "you lose"
+  
+
+
+
+def play_game():
+ logo = """
+.------.            _     _            _    _            _    
+|A_  _ |.          | |   | |          | |  (_)          | |   
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   < 
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\\
+      |  \/ K|                            _/ |                
+      `------'                           |__/           
+"""
+ print(logo)
+ user_cards = []
+ computer_cards = []
+ is_game_over = False
+ for i in range(2):
+  user_cards.append(deal_card())
+  computer_cards.append(deal_card())
+ while not is_game_over:
+  user_score = calculate_score(user_cards)
+  users_Score = calculate_score(user_cards)
+  Comp_Score = calculate_score(computer_cards)
+  print(f"Your cards: {user_cards}, current score {users_Score}")
+  print(f"The dealers cards {computer_cards}, current score {Comp_Score}")
+  if users_Score == 0 or Comp_Score == 0 or users_Score > 21:
+   is_game_over = True
+  else:
+   another_card = input("Type 'y 'to get another card or type 'n' to pass")
+   if another_card == "y":
+    user_cards.append(deal_card())
+   else:
+    is_game_over = True
+
+
+  while calculate_score != 0 and Comp_Score < 17:
+   computer_cards.append(deal_card())
+   Comp_Score = calculate_score(computer_cards)
+
+ print(f"Your final hand {user_cards}, final score {users_Score}")
+ print(f"Dealers final hand {computer_cards}, final score {Comp_Score}")
+ print(compare(users_Score, Comp_Score))
+
+
+while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
+  play_game()
+
+
+
+
+   
+  
+
+  
