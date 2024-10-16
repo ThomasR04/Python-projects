@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>main2.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main2.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">turtle</span>
+<span class="s0">from </span><span class="s1">Scoreboard </span><span class="s0">import </span><span class="s1">Scoreboard</span>
+<span class="s0">import </span><span class="s1">pandas</span>
+
+<span class="s1">screen </span><span class="s2">= </span><span class="s1">turtle</span><span class="s2">.</span><span class="s1">Screen</span><span class="s2">()</span>
+<span class="s1">screen</span><span class="s2">.</span><span class="s1">title</span><span class="s2">(</span><span class="s3">&quot;U.S States game&quot;</span><span class="s2">)</span>
+<span class="s1">image </span><span class="s2">= </span><span class="s3">&quot;blank_states_img.gif&quot;</span>
+<span class="s1">screen</span><span class="s2">.</span><span class="s1">addshape</span><span class="s2">(</span><span class="s1">image</span><span class="s2">)</span>
+<span class="s1">turtle</span><span class="s2">.</span><span class="s1">shape</span><span class="s2">(</span><span class="s1">image</span><span class="s2">)</span>
+
+<span class="s1">data </span><span class="s2">= </span><span class="s1">pandas</span><span class="s2">.</span><span class="s1">read_csv</span><span class="s2">(</span><span class="s3">&quot;States.csv&quot;</span><span class="s2">)</span>
+<span class="s1">all_states </span><span class="s2">= </span><span class="s1">data</span><span class="s2">.</span><span class="s1">state</span><span class="s2">.</span><span class="s1">to_list</span><span class="s2">()</span>
+<span class="s1">guessed_states </span><span class="s2">= []</span>
+
+
+<span class="s1">score </span><span class="s2">= </span><span class="s1">Scoreboard</span><span class="s2">(</span><span class="s4">225</span><span class="s2">,</span><span class="s4">200</span><span class="s2">)</span>
+
+
+<span class="s0">while </span><span class="s1">len</span><span class="s2">(</span><span class="s1">guessed_states</span><span class="s2">) &lt; </span><span class="s4">50</span><span class="s2">:</span>
+ <span class="s1">answer_state </span><span class="s2">= </span><span class="s1">screen</span><span class="s2">.</span><span class="s1">textinput</span><span class="s2">(</span><span class="s1">title </span><span class="s2">= </span><span class="s3">&quot;Guess the State&quot;</span><span class="s2">, </span><span class="s1">prompt</span><span class="s2">= </span><span class="s3">&quot;Guess Another state&quot;</span><span class="s2">)</span>
+ <span class="s1">answer_state</span><span class="s2">.</span><span class="s1">title</span><span class="s2">()</span>
+
+ <span class="s0">if </span><span class="s1">answer_state </span><span class="s0">in </span><span class="s1">all_states</span><span class="s2">:</span>
+     <span class="s1">states </span><span class="s2">= </span><span class="s1">turtle</span><span class="s2">.</span><span class="s1">Turtle</span><span class="s2">()</span>
+     <span class="s1">states</span><span class="s2">.</span><span class="s1">hideturtle</span><span class="s2">()</span>
+     <span class="s1">states</span><span class="s2">.</span><span class="s1">penup</span><span class="s2">()</span>
+     <span class="s1">state_p </span><span class="s2">= </span><span class="s1">data</span><span class="s2">[</span><span class="s1">data</span><span class="s2">.</span><span class="s1">state </span><span class="s2">== </span><span class="s1">answer_state</span><span class="s2">]</span>
+     <span class="s1">states</span><span class="s2">.</span><span class="s1">goto</span><span class="s2">(</span><span class="s1">state_p</span><span class="s2">.</span><span class="s1">x</span><span class="s2">.</span><span class="s1">item</span><span class="s2">(), </span><span class="s1">state_p</span><span class="s2">.</span><span class="s1">y</span><span class="s2">.</span><span class="s1">item</span><span class="s2">())</span>
+     <span class="s1">states</span><span class="s2">.</span><span class="s1">write</span><span class="s2">(</span><span class="s1">answer_state</span><span class="s2">)</span>
+     <span class="s1">guessed_states</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">answer_state</span><span class="s2">)</span>
+     <span class="s1">score</span><span class="s2">.</span><span class="s1">increment_score</span><span class="s2">()</span>
+     <span class="s1">score</span><span class="s2">.</span><span class="s1">write_Score</span><span class="s2">()</span>
+
+<span class="s1">congrats </span><span class="s2">= </span><span class="s1">Scoreboard</span><span class="s2">(</span><span class="s4">0</span><span class="s2">,</span><span class="s4">0</span><span class="s2">)</span>
+<span class="s1">congrats</span><span class="s2">.</span><span class="s1">congrats_message</span><span class="s2">()</span>
+
+
+
+
+
+
+
+
+<span class="s0">def </span><span class="s1">get_mouse_click</span><span class="s2">(</span><span class="s1">x</span><span class="s2">,</span><span class="s1">y</span><span class="s2">):</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s1">x</span><span class="s2">,</span><span class="s1">y</span><span class="s2">)</span>
+
+<span class="s1">turtle</span><span class="s2">.</span><span class="s1">onscreenclick</span><span class="s2">(</span><span class="s1">get_mouse_click</span><span class="s2">)</span>
+
+<span class="s1">turtle</span><span class="s2">.</span><span class="s1">mainloop</span><span class="s2">()</span>
+
+
+</pre>
+</body>
+</html>
